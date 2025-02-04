@@ -278,7 +278,10 @@ def update_output(go_clicks, reset_clicks, ticker_input, ticker_dropdown, months
         else:
             col += 1
 
-    fig_sub.update_layout(height=600, width=800, title_text="Historical Closing Price (not adjusted)")
+    fig_sub.update_layout(
+        autosize=True,  # Allows the figure to scale with the browser
+        title_text="Historical Closing Price (not adjusted)"
+    )
 
     # -----------------------------------------------------------------------------
     # Assemble all components into the main content layout.
