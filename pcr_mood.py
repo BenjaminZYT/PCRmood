@@ -217,7 +217,7 @@ def update_output(go_clicks, reset_clicks, ticker_input, ticker_dropdown, months
 #             pcr_info.append(html.P(f"Number of Call Options: {num_calls}"))
 #             pcr_info.append(html.P(f"Number of Put Options: {num_puts}"))
 #             pcr_info.append(html.P(f"PCR (Open Interest): {pcr_oi:.2f}" if pcr_oi is not None else "PCR (Open Interest): N/A"))
-            pcr_info.append(html.P(f"PCR (Volume): {pcr_vol:.2f}" if pcr_vol is not None else "PCR (Volume): N/A"))
+            pcr_info.append(html.P(f"Current PCR (Volume) for {ticker}: {pcr_vol:.2f}" if pcr_vol is not None else "PCR (Volume): N/A"))
     except Exception as e:
         pcr_info.append(html.P(f"Error computing options data: {e}"))
 
@@ -289,9 +289,10 @@ def update_output(go_clicks, reset_clicks, ticker_input, ticker_dropdown, months
         html.H2(f"Historical Closing Price Data for {ticker} (not adjusted)"),
         dcc.Graph(figure=fig_main),
         html.H3("Put-Call Ratios for Options (Traded in Last 96 Hours (4 days))"),
+        html.Div(pcr_info),
         html.P(
             [
-                "PCR = 0.7: neutral || PCR > 0.7: bearish || PCR < 0.7: bullish. See ",
+                "Rule of Thumb: PCR = 0.7: neutral || PCR > 0.7: bearish || PCR < 0.7: bullish. See ",
                 html.A(
                     "Investopedia explanation.",
                     href="https://www.investopedia.com/ask/answers/06/putcallratio.asp",
@@ -300,7 +301,6 @@ def update_output(go_clicks, reset_clicks, ticker_input, ticker_dropdown, months
             ],
             style={'fontSize': '14px'}
         ),
-        html.Div(pcr_info),
         html.H2("Corresponding Plots for Amazon, Apple, Nvidia, and Tesla"),
         dcc.Graph(figure=fig_sub),
         html.H3("Put-Call Ratios (for options traded in the last 4 days)"),
