@@ -167,7 +167,7 @@ def update_output(go_clicks, reset_clicks, ticker_input, ticker_dropdown, months
         end_date = pd.Timestamp.now(tz='UTC')
         # Use an approximate month duration (30 days per month)
         start_date = end_date - pd.Timedelta(days=months_selected * 30)
-        hist = ticker_obj.history(start=start_date, end=end_date, interval='1d')
+        hist = ticker_obj.history(start=start_date, end=end_date, interval='1d', auto_adjust=False)
     except Exception as e:
         error_messages.append(f"Error fetching data for {ticker}: {e}")
         return " ".join(error_messages), "", ticker_input, ticker_dropdown, months_selected
@@ -231,7 +231,7 @@ def update_output(go_clicks, reset_clicks, ticker_input, ticker_dropdown, months
     for sub_ticker in subplot_tickers:
         try:
             sub_obj = yf.Ticker(sub_ticker)
-            sub_hist = sub_obj.history(start=start_date, end=end_date, interval='1d')
+            sub_hist = sub_obj.history(start=start_date, end=end_date, interval='1d', auto_adjust=False)
             if not sub_hist.empty:
                 # Use "Adj Close" if available; otherwise "Close"
                 sub_y_col = "Adj Close" if "Adj Close" in sub_hist.columns else "Close"
