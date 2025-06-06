@@ -177,7 +177,7 @@ def update_output(go_clicks, reset_clicks, ticker_input, ticker_dropdown, months
                         x=sub_hist.index,
                         y=sub_hist[sub_y_col],
                         mode="lines",
-                        line=dict(color="purple"),
+                        # line=dict(color="purple"),
                         showlegend=False
                     ),
                     row=row, col=col
